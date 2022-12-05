@@ -22,7 +22,7 @@ When `process.env` is not `production` then any log will appear in the browser c
 </p>
 The colored styling is also supported in terminal consoles when running in a Webpack or other compiled project, as long as the terminal supports colors.
 
-### How to run all the services locally
+### How to Develop & Run all the services locally
 The pre-requirements to this are a properly set up Node and Docker environment 
 - `cd api && npm run dev-stack` will start H3 API server and instances of ElasticSearch and Kibana
 - in a different terminal `cd client && npm run example-prod` will build the client with `microbundle` and serve the example `index.html` file
