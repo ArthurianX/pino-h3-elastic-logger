@@ -10,7 +10,10 @@ An ElastichSearch logging flow built from a small client library that talks with
 
 ### Local development console helper
 When `process.env` is `development` then any log you set will appear in console like this:
-<img width="836" alt="image" src="https://user-images.githubusercontent.com/2720451/205640778-c4fa1baf-9740-4d9e-b736-89492ce032b3.png">
+<p align="center">
+  <img width="834" alt="image" src="https://user-images.githubusercontent.com/2720451/205640893-e833ad75-eb08-4e87-a7ac-b28f4e69c237.png">
+</p>
+
 
 
 
