@@ -1,8 +1,8 @@
 export enum LogVerbosity {
-    Info = 'Logger > INFO',
-    Warn = 'Logger > WARN',
-    Error = 'Logger > ERROR',
-    Success = 'Logger > SUCCESS',
+    Info = 'INFO',
+    Warn = 'WARN',
+    Error = 'ERROR',
+    Success = 'SUCCESS',
 }
 export enum LogStyle {
     Info = '\x1b[38;2;255;255;255;48;2;92;147;156;1m ',

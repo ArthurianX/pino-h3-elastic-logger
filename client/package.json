@@ -14,12 +14,15 @@
   "module": "./dist/pino-client-logger.module.js",
   "unpkg": "./dist/pino-client-logger.umd.js",
   "scripts": {
-    "build": "microbundle && cp -R ./dist ./example",
-    "dev": "microbundle watch"
+    "build": "microbundle --define process.env.NODE_ENV=production",
+    "dev": "microbundle --define process.env.NODE_ENV=development watch",
+    "build-dev": "microbundle --define process.env.NODE_ENV=development",
+    "test-dev": "serve ./"
   },
   "author": "Arthur Kovacs",
   "license": "ISC",
   "devDependencies": {
-    "microbundle": "^0.15.1"
+    "microbundle": "^0.15.1",
+    "serve": "^14.1.2"
   }
 }

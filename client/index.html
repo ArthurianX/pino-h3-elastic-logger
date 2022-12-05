@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logger Example</title>
+    <script type="text/javascript" src="dist/pino-client-logger.umd.js"></script>
+</head>
+<body>
+
+<input id="logValue" type="text" placeholder="Write here what you want to log" value="I'm going to log this">
+<br />
+<button onclick="logMessage('info')">Log Info</button>
+<br />
+<button onclick="logMessage('warn')">Log Warn</button>
+<br />
+<button onclick="logMessage('error')">Log Error</button>
+<br />
+<button onclick="logMessage('success')">Log Success</button>
+<br />
+Open Console >
+
+<script type="text/javascript">
+    var logger = new pinoClientLogger("", "Pino");
+    logger.info('This is just a normal info / log message');
+    logger.warn('A warn message has a yellow color and an attention icon');
+    logger.error('This error log puts up a stacktrace of the message to the console');
+    logger.success('Is just a log / info message, but a different color.');
+    const logMessage = (cType) => {
+        switch (cType) {
+            case 'info':
+                logger.info(document.querySelector('#logValue').value);
+                break;
+            case 'warn':
+                logger.warn(document.querySelector('#logValue').value);
+                break;
+            case 'error':
+                logger.error(document.querySelector('#logValue').value);
+                break;
+            case 'success':
+                logger.success(document.querySelector('#logValue').value);
+                break;
+        }
+    }
+</script>
+</body>
+</html>
