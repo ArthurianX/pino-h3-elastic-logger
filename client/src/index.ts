@@ -1,5 +1,5 @@
 import logger from './console-logger'
-import { LogVerbosity } from './types'
+import { LogVerbosity } from '../../common/types'
 
 class Logger {
     localName = 'Logger'
@@ -92,11 +92,11 @@ class Logger {
 
     private apiCall(severity: LogVerbosity, message): void {
         // Example POST method implementation:
-        async function postData(url = '', data = {}) {
+        async function postData(url, data = {}) {
             // Default options are marked with *
             const response = await fetch(url, {
                 method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                mode: 'cors', // no-cors, *cors, same-origin
+                mode: 'no-cors', // no-cors, *cors, same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, *same-origin, omit
                 headers: {

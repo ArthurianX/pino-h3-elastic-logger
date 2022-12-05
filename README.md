@@ -9,11 +9,15 @@ An ElastichSearch logging flow built from a small client library that talks with
 - The purpose of it is for the client and the API to remain in a familiar state, and then we can change the logging transport to whatever we want.
 
 ### Local development console helper
-When `process.env` is `development` then any log you set will appear in console like this:
+When `process.env` is not `production` then any log will appear in the browser console like this:
 <p align="center">
   <img width="834" alt="image" src="https://user-images.githubusercontent.com/2720451/205640893-e833ad75-eb08-4e87-a7ac-b28f4e69c237.png">
 </p>
+The colored styling is also supported in terminal consoles when running in a Webpack or other compiled project, as long as the terminal supports colors.
 
-
+### How to run all the services locally
+The pre-requirements to this are a properly set up Node and Docker environment 
+- `cd api && npm run dev-stack` will start H3 API server and instances of ElasticSearch and Kibana
+- in a different terminal `cd client && npm run example-prod` will build the client with `microbundle` and serve the example `index.html` file
 
 

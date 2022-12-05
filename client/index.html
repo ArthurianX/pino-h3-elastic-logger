@@ -20,7 +20,7 @@
 Open Console >
 
 <script type="text/javascript">
-    var logger = new pinoClientLogger("", "Pino");
+    var logger = new pinoClientLogger("http://localhost:3000", "Pino");
     logger.info('This is just a normal info / log message');
     logger.warn('A warn message has a yellow color and an attention icon');
     logger.error('This error log puts up a stacktrace of the message to the console');

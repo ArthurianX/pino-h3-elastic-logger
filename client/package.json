@@ -17,7 +17,8 @@
     "build": "microbundle --define process.env.NODE_ENV=production",
     "dev": "microbundle --define process.env.NODE_ENV=development watch",
     "build-dev": "microbundle --define process.env.NODE_ENV=development",
-    "test-dev": "serve ./"
+    "example-dev": "npm run dev && serve ./ -p 3001",
+    "example-prod": "npm run build && serve ./ -p 3001"
   },
   "author": "Arthur Kovacs",
   "license": "ISC",

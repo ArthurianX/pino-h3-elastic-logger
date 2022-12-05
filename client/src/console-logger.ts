@@ -1,4 +1,4 @@
-import { LogStyle, LogVerbosity } from './types'
+import { LogStyle, LogVerbosity } from '../../common/types'
 
 const log = (
     verbosity: LogVerbosity,
@@ -17,16 +17,14 @@ const log = (
     const consoledOutput = `${selectedLogStyle}${loggerName} > ${verbosity}: ${separator} ${message}`
 
     switch (verbosity) {
-        case LogVerbosity.Info:
-        case LogVerbosity.Success:
-            console.log(consoledOutput)
-            break
         case LogVerbosity.Warn:
             console.warn(consoledOutput)
             break
         case LogVerbosity.Error:
             console.error(consoledOutput)
             break
+        case LogVerbosity.Info:
+        case LogVerbosity.Success:
         default:
             console.log(consoledOutput)
     }
