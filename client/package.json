@@ -1,0 +1,25 @@
+{
+  "name": "pino-client-logger",
+  "version": "0.0.1",
+  "description": "Small clientside logger generated from pino-h3-elastic-logger",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": {
+    "types": "./dist/pino-client-logger.d.ts",
+    "require": "./dist/pino-client-logger.js",
+    "default": "./dist/pino-client-logger.mjs"
+  },
+  "types": "dist/pino-client-logger.d.ts",
+  "main": "./dist/pino-client-logger.cjs",
+  "module": "./dist/pino-client-logger.module.js",
+  "unpkg": "./dist/pino-client-logger.umd.js",
+  "scripts": {
+    "build": "microbundle && cp -R ./dist ./example",
+    "dev": "microbundle watch"
+  },
+  "author": "Arthur Kovacs",
+  "license": "ISC",
+  "devDependencies": {
+    "microbundle": "^0.15.1"
+  }
+}

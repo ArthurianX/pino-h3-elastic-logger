@@ -1,0 +1,27 @@
+{
+  "name": "pino-h3-elastic-logger-api",
+  "version": "0.0.1",
+  "description": "H3 powered Pino driven API that will log client received logs to ElasticSearch",
+  "main": "main.ts",
+  "scripts": {
+    "indirect-elastick-stack": "docker-compose -f  node_modules/pino-elasticsearch/docker-compose-v8.yml up",
+    "indirect-pino-api": "npx nodemon ./main.ts",
+    "test": "test",
+    "dev": "npx nodemon ./src/index.ts | pino-pretty",
+    "dev-stack": "concurrently 'npm run indirect-elastick-stack' 'npm run indirect-pino-api'"
+  },
+  "author": "Arthur Kovacs",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "nodemon": "^2.0.20",
+    "pino-pretty": "^9.1.1",
+    "ts-node": "^10.9.1",
+    "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "h3": "^1.0.1",
+    "pino-elasticsearch": "^6.3.0",
+    "pino-http": "^8.2.1"
+  }
+}
