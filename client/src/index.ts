@@ -59,12 +59,12 @@ class Logger {
             this.registeredUnhandledErrors,
             false
         )
+        window.onerror = undefined
     }
 
     private registerWindowError() {
         // NOTE: Just like Sentry or other crash reporting app, we're going to listen to window.onerror and pass that to the api
         window.onerror = (message, file, line, col, error) => {
-            alert('Error occurred: ' + error.message)
             if ('production' === process.env.NODE_ENV) {
                 this.apiCall(LogVerbosity.Error, error.message)
             } else {
@@ -73,7 +73,6 @@ class Logger {
         }
     }
     private registerErrors(e) {
-        alert('Error occurred: ' + e.error.message)
         if ('production' === process.env.NODE_ENV) {
             this.apiCall(LogVerbosity.Error, e.error.message)
         } else {
@@ -82,7 +81,6 @@ class Logger {
     }
 
     private registeredUnhandledErrors(e) {
-        alert('Error occurred: ' + e.reason.message)
         if ('production' === process.env.NODE_ENV) {
             this.apiCall(LogVerbosity.Error, e.reason.message)
         } else {

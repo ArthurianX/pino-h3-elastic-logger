@@ -8,6 +8,13 @@ An ElastichSearch logging flow built from a small client library that talks with
 - When it will become a bottleneck, we can move the backpressure from the application to a broker like `pino-mq` or `pino-kafka` 
 - The purpose of it is for the client and the API to remain in a familiar state, and then we can change the logging transport to whatever we want.
 
+### Usage
+
+- Import with `import { Logger } from '?'`
+- Instantiate and configure the logger class with `const logger = new Logger(API_URL, LoggerName);`, `LoggerName` is the name that will appear in the logs, it's also optional.
+- Use its methods `logger.info|warn|error|success('message')`
+- The logger also registers some global error listeners, which can be unregisterd with `logger.unregisterListeners()`
+
 ### Local development console helper
 When `process.env` is not `production` then any log will appear in the browser console like this:
 <p align="center">
