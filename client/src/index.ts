@@ -4,8 +4,8 @@ import { LogVerbosity } from '../../common/types'
 class Logger {
     localName = 'Logger'
     apiUrl = 'http://localhost:3000'
-    unhandledListener
-    errorListener
+    unhandledListener: any
+    errorListener: any
 
     constructor(apiUrl: string, loggerName?: string) {
         this.apiUrl = apiUrl
@@ -20,7 +20,7 @@ class Logger {
         this.registerWindowError()
     }
 
-    public info(message) {
+    public info(message: string) {
         if ('production' !== process.env.NODE_ENV) {
             logger.info(message, this.localName)
         } else {
@@ -28,7 +28,7 @@ class Logger {
         }
     }
 
-    public warn(message) {
+    public warn(message: string) {
         if ('production' !== process.env.NODE_ENV) {
             logger.warn(message, this.localName)
         } else {
@@ -36,7 +36,7 @@ class Logger {
         }
     }
 
-    public error(message) {
+    public error(message: string) {
         if ('production' !== process.env.NODE_ENV) {
             logger.error(message, this.localName)
         } else {
@@ -44,7 +44,7 @@ class Logger {
         }
     }
 
-    public success(message) {
+    public success(message: string) {
         if ('production' !== process.env.NODE_ENV) {
             logger.success(message, this.localName)
         } else {
@@ -59,6 +59,7 @@ class Logger {
             this.registeredUnhandledErrors,
             false
         )
+        // @ts-ignore
         window.onerror = undefined
     }
 
@@ -66,13 +67,13 @@ class Logger {
         // NOTE: Just like Sentry or other crash reporting app, we're going to listen to window.onerror and pass that to the api
         window.onerror = (message, file, line, col, error) => {
             if ('production' === process.env.NODE_ENV) {
-                this.apiCall(LogVerbosity.Error, error.message)
+                this.apiCall(LogVerbosity.Error, error!.message)
             } else {
-                logger.error(error.message, this.localName)
+                logger.error(error!.message, this.localName)
             }
         }
     }
-    private registerErrors(e) {
+    private registerErrors(e: any) {
         if ('production' === process.env.NODE_ENV) {
             this.apiCall(LogVerbosity.Error, e.error.message)
         } else {
@@ -80,7 +81,7 @@ class Logger {
         }
     }
 
-    private registeredUnhandledErrors(e) {
+    private registeredUnhandledErrors(e: any) {
         if ('production' === process.env.NODE_ENV) {
             this.apiCall(LogVerbosity.Error, e.reason.message)
         } else {
@@ -88,9 +89,9 @@ class Logger {
         }
     }
 
-    private apiCall(severity: LogVerbosity, message): void {
+    private apiCall(severity: LogVerbosity, message: string): void {
         // Example POST method implementation:
-        async function postData(url, data = {}) {
+        async function postData(url: string, data = {}) {
             // Default options are marked with *
             const response = await fetch(url, {
                 method: 'POST', // *GET, POST, PUT, DELETE, etc.

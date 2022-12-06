@@ -31,16 +31,16 @@ const log = (
 }
 
 const logger = {
-    info: (message: string, loggerName) => {
+    info: (message: string, loggerName: string) => {
         log(LogVerbosity.Info, LogStyle.Info, loggerName, `${message}`)
     },
-    warn: (message: string, loggerName) => {
+    warn: (message: string, loggerName: string) => {
         log(LogVerbosity.Warn, LogStyle.Warn, loggerName, `${message}`)
     },
-    error: (message: string, loggerName) => {
+    error: (message: string, loggerName: string) => {
         log(LogVerbosity.Error, LogStyle.Error, loggerName, `${message}`)
     },
-    success: (message: string, loggerName) => {
+    success: (message: string, loggerName: string) => {
         log(LogVerbosity.Success, LogStyle.Success, loggerName, `${message}`)
     },
 }

@@ -1,29 +1,32 @@
 {
-  "name": "pino-client-logger",
-  "version": "0.0.1",
-  "description": "Small clientside logger generated from pino-h3-elastic-logger",
+  "name": "pino-logger-client",
+  "version": "0.1.0",
+  "description": "Logger client that sends logs to an H3 powered API (and to ElasticSearch) and console in development mode",
   "type": "module",
   "source": "src/index.ts",
   "exports": {
-    "types": "./dist/pino-client-logger.d.ts",
-    "require": "./dist/pino-client-logger.js",
-    "default": "./dist/pino-client-logger.mjs"
+    "types": "./dist/pino-logger-client.d.ts",
+    "require": "./dist/pino-logger-client.js",
+    "default": "./dist/pino-logger-client.mjs"
   },
-  "types": "dist/pino-client-logger.d.ts",
-  "main": "./dist/pino-client-logger.cjs",
-  "module": "./dist/pino-client-logger.module.js",
-  "unpkg": "./dist/pino-client-logger.umd.js",
+  "types": "dist/pino-logger-client.d.ts",
+  "main": "./dist/pino-logger-client.cjs",
+  "module": "./dist/pino-logger-client.module.js",
+  "unpkg": "./dist/pino-logger-client.umd.js",
   "scripts": {
     "build": "microbundle --define process.env.NODE_ENV=production",
     "dev": "microbundle --define process.env.NODE_ENV=development watch",
     "build-dev": "microbundle --define process.env.NODE_ENV=development",
     "example-dev": "npm run dev && serve ./ -p 3001",
-    "example-prod": "npm run build && serve ./ -p 3001"
+    "example-prod": "npm run build && serve ./ -p 3001",
+    "dts": "./node_modules/.bin/npm-dts generate"
   },
   "author": "Arthur Kovacs",
+  "email": "kovacs.arthur.kraid@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "microbundle": "^0.15.1",
+    "npm-dts": "^1.3.12",
     "serve": "^14.1.2"
   }
 }
