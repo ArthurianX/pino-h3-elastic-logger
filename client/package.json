@@ -1,7 +1,7 @@
 {
   "name": "pino-logger-client",
   "version": "0.1.0",
-  "description": "Logger client that sends logs to an H3 powered API (and to ElasticSearch) and console in development mode",
+  "description": "Logger client that sends logs to an H3 powered API (and to ElasticSearch) and console in development mode. This is part of [pino-h3-elastic-logger](https://github.com/ArthurianX/pino-h3-elastic-logger)}",
   "type": "module",
   "source": "src/index.ts",
   "exports": {
@@ -15,11 +15,12 @@
   "unpkg": "./dist/pino-logger-client.umd.js",
   "scripts": {
     "build": "microbundle --define process.env.NODE_ENV=production",
+    "postbuild": "rm -rf dist/client && rm -rf dist/common && npm run dts",
     "dev": "microbundle --define process.env.NODE_ENV=development watch",
     "build-dev": "microbundle --define process.env.NODE_ENV=development",
     "example-dev": "npm run dev && serve ./ -p 3001",
     "example-prod": "npm run build && serve ./ -p 3001",
-    "dts": "./node_modules/.bin/npm-dts generate"
+    "dts": "./node_modules/.bin/npm-dts generate -o dist/pino-logger-client.d.ts"
   },
   "author": "Arthur Kovacs",
   "email": "kovacs.arthur.kraid@gmail.com",
