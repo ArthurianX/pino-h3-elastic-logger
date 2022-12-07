@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Logger Example</title>
-    <script type="text/javascript" src="dist/pino-logger-client.umd.js"></script>
+    <script type="text/javascript" src="dist/pino-logger-client.js"></script>
 </head>
 <body>
 
@@ -20,24 +20,24 @@
 Open Console >
 
 <script type="text/javascript">
-    var logger = new pinoClientLogger("http://localhost:3000", "Pino");
-    logger.info('This is just a normal info / log message');
-    logger.warn('A warn message has a yellow color and an attention icon');
-    logger.error('This error log puts up a stacktrace of the message to the console');
-    logger.success('Is just a log / info message, but a different color.');
+    const consoleLogger = new Logger("http://localhost:3000", "Pino");
+    consoleLogger.info('This is just a normal info / log message');
+    consoleLogger.warn('A warn message has a yellow color and an attention icon');
+    consoleLogger.error('This error log puts up a stacktrace of the message to the console');
+    consoleLogger.success('Is just a log / info message, but a different color.');
     const logMessage = (cType) => {
         switch (cType) {
             case 'info':
-                logger.info(document.querySelector('#logValue').value);
+                consoleLogger.info(document.querySelector('#logValue').value);
                 break;
             case 'warn':
-                logger.warn(document.querySelector('#logValue').value);
+                consoleLogger.warn(document.querySelector('#logValue').value);
                 break;
             case 'error':
-                logger.error(document.querySelector('#logValue').value);
+                consoleLogger.error(document.querySelector('#logValue').value);
                 break;
             case 'success':
-                logger.success(document.querySelector('#logValue').value);
+                consoleLogger.success(document.querySelector('#logValue').value);
                 break;
         }
     }
