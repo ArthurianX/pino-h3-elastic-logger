@@ -15,12 +15,10 @@
   "unpkg": "./dist/pino-logger-client.umd.js",
   "scripts": {
     "build": "microbundle --define process.env.NODE_ENV=production",
-    "postbuild": "rm -rf dist/client && rm -rf dist/common && npm run dts",
     "dev": "microbundle --define process.env.NODE_ENV=development watch",
     "build-dev": "microbundle --define process.env.NODE_ENV=development",
     "example-dev": "npm run dev && serve ./ -p 3001",
-    "example-prod": "npm run build && serve ./ -p 3001",
-    "dts": "./node_modules/.bin/npm-dts generate -o dist/pino-logger-client.d.ts"
+    "example-prod": "npm run build && serve ./ -p 3001"
   },
   "author": "Arthur Kovacs",
   "email": "kovacs.arthur.kraid@gmail.com",
