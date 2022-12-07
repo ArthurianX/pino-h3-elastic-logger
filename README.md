@@ -2,6 +2,10 @@
 
 An ElastichSearch logging flow built from a small client library that talks with an H3 lightweight server which runs pino and the pino-elasticsearch transport
 
+
+https://user-images.githubusercontent.com/2720451/206240154-341ffa44-6b07-48a4-aac7-10fa63284d9e.mp4
+
+
 ### Considerents 
 - This is an intermediate solution to a logging problem we're facing.
 - The service can be scaled in as many instances as needed.
@@ -18,7 +22,7 @@ See the console logger in action live [on StackBklitz](https://stackblitz.com/ed
 
 ### Usage
 
-- Import with `import { Logger } from '?'`
+- Import with `import { Logger } from 'pino-logger-client'`
 - Instantiate and configure the logger class with `const logger = new Logger(API_URL, LoggerName);`, `LoggerName` is the name that will appear in the logs, it's also optional.
 - Use its methods `logger.info|warn|error|success('message')`
 - The logger also registers some global error listeners, which can be unregisterd with `logger.unregisterListeners()`
