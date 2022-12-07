@@ -9,7 +9,8 @@
   "module": "dist/pino-logger-client.mjs",
   "typings": "dist/pino-logger-client.d.ts",
   "scripts": {
-    "build": "rollup -c"
+    "build-dev": "NODE_ENV=development rollup -c",
+    "build-prod": "NODE_ENV=production rollup -c"
   },
   "devDependencies": {
     "@types/node": "18.11.11",
