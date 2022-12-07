@@ -1,6 +1,6 @@
 {
   "name": "pino-logger-client",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "description": "Logger client that sends logs to an H3 powered API (and to ElasticSearch) and console in development mode. This is part of [pino-h3-elastic-logger](https://github.com/ArthurianX/pino-h3-elastic-logger)}",
   "type": "module",
   "source": "src/index.ts",
