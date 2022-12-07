@@ -8,6 +8,14 @@ An ElastichSearch logging flow built from a small client library that talks with
 - When it will become a bottleneck, we can move the backpressure from the application to a broker like `pino-mq` or `pino-kafka` 
 - The purpose of it is for the client and the API to remain in a familiar state, and then we can change the logging transport to whatever we want.
 
+### See it in action
+
+See the console logger in action live [on StackBklitz](https://stackblitz.com/edit/react-ts-mouehg?file=index.tsx)
+(Open the page and then the console)
+
+
+
+
 ### Usage
 
 - Import with `import { Logger } from '?'`
