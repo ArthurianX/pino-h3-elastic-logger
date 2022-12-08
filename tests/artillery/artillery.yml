@@ -1,0 +1,16 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 30 # Send for X seconds
+      arrivalRate: 100 # Send X calls / second
+  processor: "./processor.js"
+
+scenarios:
+  - name: "Send Logs"
+    flow:
+      - post:
+          url: "/"
+          beforeRequest: generateMockData
+          json:
+            severity: "{{ severity }}"
+            message: "{{ message }}"

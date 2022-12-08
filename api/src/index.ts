@@ -50,20 +50,20 @@ const decorateApp = (app: App) => {
 }
 
 const logMessage = (severity: LogVerbosity, message: any) => {
-    if ('production' !== process.env.NODE_ENV) {
-        switch (severity) {
-            case LogVerbosity.Warn:
-                prettyLogger.warn(message)
-                break
-            case LogVerbosity.Error:
-                prettyLogger.error(message)
-                break
-            case LogVerbosity.Info:
-            case LogVerbosity.Success:
-            default:
-                prettyLogger.info(message)
-        }
-    }
+    // if ('production' !== process.env.NODE_ENV) {
+    //     switch (severity) {
+    //         case LogVerbosity.Warn:
+    //             prettyLogger.warn(message)
+    //             break
+    //         case LogVerbosity.Error:
+    //             prettyLogger.error(message)
+    //             break
+    //         case LogVerbosity.Info:
+    //         case LogVerbosity.Success:
+    //         default:
+    //             prettyLogger.info(message)
+    //     }
+    // }
 
     switch (severity) {
         case LogVerbosity.Warn:

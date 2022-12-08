@@ -7,3 +7,7 @@
 .vscode
 .idea
 .npmrc
+
+# Ignore generated tests files
+tests/report.html
+tests/test.json

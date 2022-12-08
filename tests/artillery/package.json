@@ -1,0 +1,16 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "artillery run artillery.yml --output test.json",
+    "report": "artillery report --output report.html test.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "artillery": "^2.0.0-27",
+    "@faker-js/faker": "^7.6.0"
+  }
+}
