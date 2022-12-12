@@ -15,5 +15,5 @@ export enum LogStyle {
 export interface LogMessage {
     message: string
     localTime: Date
-    windowCleaned: string
+    windowCleaned?: string
 }

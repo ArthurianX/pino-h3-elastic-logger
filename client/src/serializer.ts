@@ -15,23 +15,29 @@ export const getCircularReplacer = () => {
 }
 
 const messageSerializer = (message: any): LogMessage => {
-    try {
-        return {
-            windowCleaned: JSON.stringify(window, getCircularReplacer()),
-
-            message:
-                typeof message === 'string'
-                    ? message
-                    : JSON.stringify(message, getCircularReplacer(), '\t'),
-            localTime: new Date(),
-        }
-    } catch (e) {
-        return {
-            windowCleaned: JSON.stringify(window, getCircularReplacer()),
-            message: 'Error while generating log message',
-            localTime: new Date(),
-        }
+    let payload = {
+        localTime: new Date(),
+        message: '',
+        windowCleaned: '',
     }
+    try {
+        payload.message =
+            typeof message === 'string'
+                ? message
+                : JSON.stringify(message, getCircularReplacer(), '\t')
+    } catch (e) {
+        payload.message = 'Error while generating log message'
+    }
+
+    try {
+        // NOTE: Getting the window in a iframe will cause a same-origin policy error.
+        //  Attach the window object only when available.
+        payload.windowCleaned = JSON.stringify(window, getCircularReplacer())
+    } catch (e) {
+        payload.windowCleaned = 'Error while generating window log'
+    }
+
+    return payload
 }
 
 export default messageSerializer
