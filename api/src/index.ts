@@ -1,6 +1,7 @@
 import { App, eventHandler } from 'h3'
 import pino from 'pino'
-import { LogVerbosity } from '../../common/types'
+import { LogMessage, LogVerbosity } from '../../common/types'
+import sanitizeLogItem from './sanitizer'
 
 const pinoElastic = require('pino-elasticsearch')
 const pinoPretty = require('pino-pretty')
@@ -34,7 +35,7 @@ const decorateApp = (app: App) => {
             event.node.req.on('end', function () {
                 const { severity, message } = JSON.parse(body) as {
                     severity: LogVerbosity
-                    message: string
+                    message: LogMessage
                 }
 
                 logMessage(severity, message)
@@ -49,33 +50,34 @@ const decorateApp = (app: App) => {
     return app
 }
 
-const logMessage = (severity: LogVerbosity, message: any) => {
-    // if ('production' !== process.env.NODE_ENV) {
-    //     switch (severity) {
-    //         case LogVerbosity.Warn:
-    //             prettyLogger.warn(message)
-    //             break
-    //         case LogVerbosity.Error:
-    //             prettyLogger.error(message)
-    //             break
-    //         case LogVerbosity.Info:
-    //         case LogVerbosity.Success:
-    //         default:
-    //             prettyLogger.info(message)
-    //     }
-    // }
+const logMessage = (severity: LogVerbosity, message: LogMessage) => {
+    if ('production' !== process.env.NODE_ENV) {
+        // NOTE: In any other environment than production also output logs to the console running the process
+        switch (severity) {
+            case LogVerbosity.Warn:
+                prettyLogger.warn(message.message)
+                break
+            case LogVerbosity.Error:
+                prettyLogger.error(message.message)
+                break
+            case LogVerbosity.Info:
+            case LogVerbosity.Success:
+            default:
+                prettyLogger.info(message.message)
+        }
+    }
 
     switch (severity) {
         case LogVerbosity.Warn:
-            elasticLogger.warn(message)
+            elasticLogger.warn(sanitizeLogItem(message))
             break
         case LogVerbosity.Error:
-            elasticLogger.error(message)
+            elasticLogger.error(sanitizeLogItem(message))
             break
         case LogVerbosity.Info:
         case LogVerbosity.Success:
         default:
-            elasticLogger.info(message)
+            elasticLogger.info(sanitizeLogItem(message))
     }
 }
 

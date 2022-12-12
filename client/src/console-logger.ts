@@ -1,47 +1,43 @@
-import { LogStyle, LogVerbosity } from '../../common/types'
+import { LogMessage, LogStyle, LogVerbosity } from '../../common/types'
 
 const log = (
     verbosity: LogVerbosity,
     selectedLogStyle: LogStyle,
     loggerName: string,
-    message: string
+    message: LogMessage
 ): void => {
-    // Only strings can pass through
-    if (typeof message !== 'string') return
-    // TODO: Maybe we'll change this to objects.
-
     const date = () => new Date().toLocaleTimeString()
-    message += `\n${date()}`
+    const messageDate = `\n${date()}`
 
     const separator = '\x1b[0m'
-    const consoledOutput = `${selectedLogStyle}${loggerName} > ${verbosity}: ${separator} ${message}`
+    const consoledOutput = `${selectedLogStyle}${loggerName} > ${verbosity}: ${separator} `
 
     switch (verbosity) {
         case LogVerbosity.Warn:
-            console.warn(consoledOutput)
+            console.warn(consoledOutput, message.message, messageDate)
             break
         case LogVerbosity.Error:
-            console.error(consoledOutput)
+            console.error(consoledOutput, message.message, messageDate)
             break
         case LogVerbosity.Info:
         case LogVerbosity.Success:
         default:
-            console.log(consoledOutput)
+            console.log(consoledOutput, message.message, messageDate)
     }
 }
 
 const logger = {
-    info: (message: string, loggerName: string) => {
-        log(LogVerbosity.Info, LogStyle.Info, loggerName, `${message}`)
+    info: (message: LogMessage, loggerName: string) => {
+        log(LogVerbosity.Info, LogStyle.Info, loggerName, message)
     },
-    warn: (message: string, loggerName: string) => {
-        log(LogVerbosity.Warn, LogStyle.Warn, loggerName, `${message}`)
+    warn: (message: LogMessage, loggerName: string) => {
+        log(LogVerbosity.Warn, LogStyle.Warn, loggerName, message)
     },
-    error: (message: string, loggerName: string) => {
-        log(LogVerbosity.Error, LogStyle.Error, loggerName, `${message}`)
+    error: (message: LogMessage, loggerName: string) => {
+        log(LogVerbosity.Error, LogStyle.Error, loggerName, message)
     },
-    success: (message: string, loggerName: string) => {
-        log(LogVerbosity.Success, LogStyle.Success, loggerName, `${message}`)
+    success: (message: LogMessage, loggerName: string) => {
+        log(LogVerbosity.Success, LogStyle.Success, loggerName, message)
     },
 }
 export default logger

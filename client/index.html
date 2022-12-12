@@ -17,6 +17,10 @@
 <br />
 <button onclick="logMessage('success')">Log Success</button>
 <br />
+<button onclick="throwGlobalError()">Throw Window Error</button>
+<br />
+<button onclick="generateRejectedPromise(true)">Throw Unhandled Rejection</button>
+<br />
 Open Console >
 
 <script type="text/javascript">
@@ -39,6 +43,29 @@ Open Console >
             case 'success':
                 consoleLogger.success(document.querySelector('#logValue').value);
                 break;
+        }
+    }
+
+    const throwGlobalError = () => {
+        JSON.parse('a');
+    }
+
+    const generateRejectedPromise = (isEventuallyHandled) => {
+        // Create a promise which immediately rejects with a given reason.
+        var rejectedPromise = Promise.reject({error: 'Error at ' +
+                new Date().toLocaleTimeString()});
+
+        if (isEventuallyHandled) {
+            // We need to handle the rejection "after the fact" in order to trigger a
+            // unhandledrejection followed by rejectionhandled. Here we simulate that
+            // via a setTimeout(), but in a real-world system this might take place due
+            // to, e.g., fetch()ing resources at startup and then handling any rejected
+            // requests at some point later on.
+            setTimeout(() => {
+                // We need to provide an actual function to .catch() or else the promise
+                // won't be considered handled.
+                rejectedPromise.catch(() => {});
+            }, 1);
         }
     }
 </script>

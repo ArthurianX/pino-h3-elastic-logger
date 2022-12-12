@@ -1,5 +1,6 @@
 import logger from './console-logger'
-import { LogVerbosity } from '../../common/types'
+import { LogMessage, LogVerbosity } from '../../common/types'
+import messageSerializer from './serializer'
 
 class Logger {
     localName = 'Logger'
@@ -11,52 +12,55 @@ class Logger {
         this.apiUrl = apiUrl
         this.localName = loggerName!
 
-        window.addEventListener('error', this.registerErrors, false)
         window.addEventListener(
             'unhandledrejection',
-            this.registeredUnhandledErrors,
+            (e) => this.registeredUnhandledErrors(e, this.localName),
             false
         )
         this.registerWindowError()
     }
 
     public info(message: string) {
+        const serializedMessage = messageSerializer(message)
         if ('production' !== process.env.NODE_ENV) {
-            logger.info(message, this.localName)
+            logger.info(serializedMessage, this.localName)
         } else {
-            this.apiCall(LogVerbosity.Info, message)
+            this.apiCall(LogVerbosity.Info, serializedMessage)
         }
     }
 
     public warn(message: string) {
+        const serializedMessage = messageSerializer(message)
         if ('production' !== process.env.NODE_ENV) {
-            logger.warn(message, this.localName)
+            logger.warn(serializedMessage, this.localName)
         } else {
-            this.apiCall(LogVerbosity.Warn, message)
+            this.apiCall(LogVerbosity.Warn, serializedMessage)
         }
     }
 
     public error(message: string) {
+        const serializedMessage = messageSerializer(message)
         if ('production' !== process.env.NODE_ENV) {
-            logger.error(message, this.localName)
+            logger.error(serializedMessage, this.localName)
         } else {
-            this.apiCall(LogVerbosity.Error, message)
+            this.apiCall(LogVerbosity.Error, serializedMessage)
         }
     }
 
     public success(message: string) {
+        const serializedMessage = messageSerializer(message)
         if ('production' !== process.env.NODE_ENV) {
-            logger.success(message, this.localName)
+            logger.success(serializedMessage, this.localName)
         } else {
-            this.apiCall(LogVerbosity.Success, message)
+            this.apiCall(LogVerbosity.Success, serializedMessage)
         }
     }
 
     public unregisterListeners() {
-        window.removeEventListener('error', this.registerErrors, false)
+        // FIXME: We're actually not unregistering because if the inline declaration of the function
         window.removeEventListener(
             'unhandledrejection',
-            this.registeredUnhandledErrors,
+            (e) => this.registeredUnhandledErrors(e, this.localName),
             false
         )
         // @ts-ignore
@@ -65,31 +69,33 @@ class Logger {
 
     private registerWindowError() {
         // NOTE: Just like Sentry or other crash reporting app, we're going to listen to window.onerror and pass that to the api
-        window.onerror = (message, file, line, col, error) => {
+        window.onerror = (message, source, line, col, error) => {
+            const serializedMessage = messageSerializer(
+                `${message}\n${source}\n${line}:${col}\n${error}`
+            )
             if ('production' === process.env.NODE_ENV) {
-                this.apiCall(LogVerbosity.Error, error!.message)
+                this.apiCall(LogVerbosity.Error, serializedMessage)
             } else {
-                logger.error(error!.message, this.localName)
+                logger.error(serializedMessage, this.localName)
             }
-        }
-    }
-    private registerErrors(e: any) {
-        if ('production' === process.env.NODE_ENV) {
-            this.apiCall(LogVerbosity.Error, e.error.message)
-        } else {
-            logger.error(e.error.message, this.localName)
+
+            // NOTE: 'Eat' the error, in case of breaking error, the app will still stop executing
+            //  per https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event#usage_notes
+            return true
+            // TODO: What other consequences could have if we eat this error ?
         }
     }
 
-    private registeredUnhandledErrors(e: any) {
+    private registeredUnhandledErrors(e: any, localName: string) {
+        const serializedMessage = messageSerializer(e.reason)
         if ('production' === process.env.NODE_ENV) {
-            this.apiCall(LogVerbosity.Error, e.reason.message)
+            this.apiCall(LogVerbosity.Error, serializedMessage)
         } else {
-            logger.error(e.reason.message, this.localName)
+            logger.error(serializedMessage, localName)
         }
     }
 
-    private apiCall(severity: LogVerbosity, message: string): void {
+    private apiCall(severity: LogVerbosity, message: LogMessage): void {
         // Example POST method implementation:
         async function postData(url: string, data = {}) {
             // Default options are marked with *
@@ -112,7 +118,9 @@ class Logger {
         postData(this.apiUrl, { severity, message }).catch((e) => {
             if ('production' !== process.env.NODE_ENV) {
                 logger.error(
-                    'Loggin API unreachable, investigate network tab',
+                    messageSerializer(
+                        'Loggin API unreachable, investigate network tab'
+                    ),
                     this.localName
                 )
             }
@@ -120,4 +128,4 @@ class Logger {
     }
 }
 
-export default Logger;
+export default Logger

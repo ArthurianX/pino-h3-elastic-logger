@@ -11,3 +11,9 @@ export enum LogStyle {
     Success = '\x1b[38;2;255;255;255;48;2;41;159;111;1m ',
     // NOTE: \x1b makes everything look good in color supporting terminals as well
 }
+
+export interface LogMessage {
+    message: string
+    localTime: Date
+    windowCleaned: string
+}
