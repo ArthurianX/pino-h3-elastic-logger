@@ -21,10 +21,17 @@
 <br />
 <button onclick="generateRejectedPromise(true)">Throw Unhandled Rejection</button>
 <br />
+<button onclick="consoleWithAPI(true)">Logger Also sends to API</button>
+<br />
+<button onclick="consoleWithAPI(false)">Logger Doesn't send to API</button>
+<br />
 Open Console >
 
 <script type="text/javascript">
-    const consoleLogger = new pinoLoggerClient("http://localhost:3000", "Pino");
+    const consoleWithAPI = (hasAPI) => {
+        consoleLogger = new pinoLoggerClient(hasAPI ? "http://localhost:3000" : false, "Pino");
+    }
+    let consoleLogger = new pinoLoggerClient(false, "Pino");
     consoleLogger.info('This is just a normal info / log message');
     consoleLogger.warn('A warn message has a yellow color and an attention icon');
     consoleLogger.error('This error log puts up a stacktrace of the message to the console');
