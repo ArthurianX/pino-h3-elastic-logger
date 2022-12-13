@@ -7,7 +7,7 @@
     "indirect-elastick-stack": "docker-compose -f  node_modules/pino-elasticsearch/docker-compose-v8.yml up",
     "test": "test",
     "dev": "npx nodemon ./main.ts",
-    "dev-stack": "concurrently 'npm run indirect-elastick-stack' 'npm run dev'",
+    "dev-stack": "NODE_ENV=production concurrently 'npm run indirect-elastick-stack' 'npm run dev'",
     "elastic-stack": "npm run indirect-elastick-stack"
   },
   "author": "Arthur Kovacs",
