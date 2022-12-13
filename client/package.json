@@ -11,7 +11,8 @@
   "scripts": {
     "build-dev": "NODE_ENV=development rollup -c",
     "build-prod": "NODE_ENV=production rollup -c",
-    "dev": "npm run build-dev && serve ./ -p 3001"
+    "dev": "npm run build-dev && serve ./ -p 3001",
+    "just-serve": "serve ./ -p 3001"
   },
   "devDependencies": {
     "@types/node": "18.11.11",
