@@ -21,11 +21,12 @@ See the console logger in action live [on StackBklitz](https://stackblitz.com/ed
 
 
 ### Usage
-
+- Install client using `npm install pino-logger-client --save` from [npm](https://www.npmjs.com/package/pino-logger-client)
 - Import with `import { Logger } from 'pino-logger-client'`
 - Instantiate and configure the logger class with `const logger = new Logger(API_URL, LoggerName);`, `LoggerName` is the name that will appear in the logs, it's also optional.
 - Use its methods `logger.info|warn|error|success('message')`
 - The logger also registers some global error listeners, which can be unregisterd with `logger.unregisterListeners()`
+- Preferably run the backend somewhere in your infrastructure and configure the logger with the URL
 
 ### Local development console helper
 When `process.env` is not `production` then any log will appear in the browser console like this:
