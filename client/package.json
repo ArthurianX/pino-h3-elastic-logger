@@ -1,6 +1,6 @@
 {
   "name": "pino-logger-client",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Logger client that sends logs to an H3 powered API (and to ElasticSearch) and console in development mode. This is part of [pino-h3-elastic-logger](https://github.com/ArthurianX/pino-h3-elastic-logger)}",
   "author": "Arthur Kovacs",
   "email": "kovacs.arthur.kraid@gmail.com",
@@ -20,6 +20,7 @@
     "rollup": "2.79.1",
     "rollup-plugin-dts": "5.0.0",
     "rollup-plugin-esbuild": "5.0.0",
+    "rollup-plugin-gzip": "3.1.0",
     "serve": "^14.1.2",
     "typescript": "4.9.3"
   }

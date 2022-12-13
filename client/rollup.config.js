@@ -1,5 +1,6 @@
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
+import gzipPlugin from 'rollup-plugin-gzip'
 
 const pack = require('./package.json')
 const name = pack.main.replace(/\.js$/, '')
@@ -15,7 +16,7 @@ export default [
     bundle({
         plugins: [
             esbuild({
-                minify: process.env.NODE_ENV === 'production',
+                minify: true,
                 define: {
                     __LOGGER_VERSION__: JSON.stringify(version),
                     'process.env.NODE_ENV': JSON.stringify(
@@ -23,6 +24,7 @@ export default [
                     ),
                 },
             }),
+            gzipPlugin(),
         ],
         output: [
             {
